@@ -27,3 +27,8 @@ go run migrate/migrate.go
 ```shell
 air
 ```
+
+### linter
+```shell
+golangci-lint run
+```
