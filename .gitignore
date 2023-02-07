@@ -17,3 +17,5 @@
 /vendor/
 coverage.out
 coverage.xml
+
+dist/
