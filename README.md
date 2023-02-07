@@ -26,6 +26,8 @@ go run migrate/migrate.go
 2/ run
 ```shell
 air
+# debug mode
+air -d
 ```
 
 ### linter

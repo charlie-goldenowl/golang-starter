@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/charlie-goldenowl/golangstarter1/controllers"
 	"github.com/charlie-goldenowl/golangstarter1/initializers"
+	"github.com/charlie-goldenowl/golangstarter1/middlewares"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -21,6 +22,8 @@ func init() {
 	initializers.ConnectDB(&config)
 
 	server = gin.Default()
+	// middlewares
+	server.Use(middlewares.Dummy)
 }
 
 func main() {
