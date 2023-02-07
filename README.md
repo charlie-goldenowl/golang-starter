@@ -34,3 +34,12 @@ air -d
 ```shell
 golangci-lint run
 ```
+
+### goreleaser
+```shell
+brew install goreleaser
+# local
+goreleaser release --snapshot --clean
+# check 
+goreleaser check
+```
