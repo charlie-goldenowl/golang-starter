@@ -1,0 +1,109 @@
+run:
+  timeout: 5m
+  go: '1.19'
+  skip-dirs:
+    - enterprise
+    - event-schema
+
+# docs: https://golangci-lint.run/usage/linters/
+linters:
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - bodyclose
+    - decorder
+    - makezero
+    - nilnil
+    - nilerr
+    - tenv
+    - unparam
+    - misspell
+    - unconvert
+    - depguard
+    - noctx
+    - errorlint
+    - exportloopref
+    - dogsled
+    - bodyclose
+    - asciicheck
+    - whitespace
+    - stylecheck
+    - typecheck
+    - revive
+    - prealloc
+    - nakedret
+    - goprintffuncname
+    - gofmt
+
+issues:
+  exclude-use-default: true
+  exclude-case-sensitive: false
+  max-issues-per-linter: 50
+  max-same-issues: 10
+  new: false
+  exclude-rules:
+    # False positive httptest.NewRecorder
+    - path: 'gateway/webhook/webhook_test.go'
+      linters:
+        - bodyclose
+
+    # False positive .Close behind if
+    - path: 'processor/transformer/transformer.go'
+      linters:
+        - bodyclose
+    
+    # False positive httptest.NewRecorder
+    - path: 'gateway/gateway_test.go'
+      linters:
+        - bodyclose
+
+    # Temporary disable until we fix the number of issues
+    - path: 'warehouse'
+      linters:
+        - errcheck
+        - unparam
+
+linters-settings:
+  depguard:
+    # Kind of list is passed in.
+    # Allowed values: allowlist|denylist
+    # Default: denylist
+    list-type: denylist
+    # Check the list against standard lib.
+    # Default: false
+    include-go-root: true
+    # A list of packages for the list type specified.
+    # Can accept both string prefixes and string glob patterns.
+    # Default: []
+    # packages:
+    #   - foo/hardcoded
+    # A list of packages for the list type specified.
+    # Specify an error message to output when a denied package is used.
+    # Default: []
+    # packages-with-error-message:
+    #   - foo/hardcoded: 'use bar/hardcoded instead'
+    # Specify rules by which the linter ignores certain files for consideration.
+    # Can accept both string prefixes and string glob patterns.
+    # The ! character in front of the rule is a special character
+    # which signals that the linter should negate the rule.
+    # This allows for more precise control, but it is only available for glob patterns.
+    # Default: []
+    # ignore-file-rules:
+    #   - "**/test_*.go"
+    # # Create additional guards that follow the same configuration pattern.
+    # # Results from all guards are aggregated together.
+    additional-guards:
+      - list-type: denylist
+        include-go-root: false
+        packages:
+          - github.com/gofrs/uuid
+        packages-with-error-message:
+          - github.com/gofrs/uuid: 'use github.com/google/uuid instead'
+        # Specify rules by which the linter ignores certain files for consideration.
+        ignore-file-rules:
+          - "**/uuid_test.go"

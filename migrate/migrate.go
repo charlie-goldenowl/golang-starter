@@ -17,6 +17,9 @@ func init() {
 }
 
 func main() {
-	initializers.DB.AutoMigrate(&models.User{}, &models.Book{})
+	err := initializers.DB.AutoMigrate(&models.User{}, &models.Book{})
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println("? Migration complete")
 }
