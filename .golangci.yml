@@ -8,6 +8,7 @@ run:
 # docs: https://golangci-lint.run/usage/linters/
 linters:
   enable:
+    - nonamedreturns
     - errcheck
     - gosimple
     - govet
